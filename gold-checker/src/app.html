@@ -1,0 +1,22 @@
+<div>
+    <table>
+        <tr>
+            <th>Shop</th>
+            <th>Manufacturer</th>
+            <th>Size</th>
+            <th>Buy</th>
+            <th>Sell</th>
+            <th>Mark-up</th>
+            <th>Link</th>
+        </tr>
+        <tr v-for="productType in productTypes">
+            <td>{{ productType.shop }}</td>
+            <td>{{ productType.producer }}</td>
+            <td>{{ productType.size }}</td>
+            <td>{{ GetBuyPrice(productType.size) }}</td>
+            <td>{{ GetSellPrice(productType.size) }}</td>
+            <td>{{ GetMarkup(productType.size) }}</td>
+            <td>{{ productType.link }}</td>
+        </tr>
+    </table>
+</div>
