@@ -1,18 +1,23 @@
 import { ScrapeGoldWebsite, ScrapeGoldSpecialWebsite } from '@/GoldScraper.js'
 import { ScrapeGoldenSpaceWebsite } from '@/GoldenSpaceScraper.js'
 
-const shops = {
-  Gold: 'Zlatara Gold',
-  GoldenSpaceAH: 'Golden Space AH'
+export const shopNames = {
+  Gold: 'Zlatara Gold Heraus',
+  GoldenSpaceAH: 'Golden Space Heraus',
+  GoldenSpaceCH: 'Golden Space CHafner',
+  GoldenSpaceHM: 'Golden Space Heimerle Meule',
+  GoldenSpaceIGR: 'Golden Space IGR',
 }
 
 const producers = {
-  ArgorHeraeus: 'Argor Heraeus'
+  ArgorHeraeus: 'Argor Heraeus',
+  HeimerleMeule: 'Heimerle+Meule',
+  CHafner: 'CHafner',
 }
 
 const shopLink = {
-  [shops.Gold]: 'https://investicionozlato.com/cena-zlatnih-poluga/',
-  [shops.GoldenSpaceAH]: 'https://golden-space.rs/investicionozlato-argor-heraeus/'
+  [shopNames.Gold]: 'https://investicionozlato.com/cena-zlatnih-poluga/',
+  [shopNames.GoldenSpaceAH]: 'https://golden-space.rs/investicionozlato-argor-heraeus/'
 }
 
 const scrapers = {
@@ -23,124 +28,273 @@ const scrapers = {
 
 export const products = [
   {
-    producer: producers.ArgorHeraeus,
-    size: '1',
+    size: '1g',
     list: [
       {
         link: '/api/gold/cena-1-gram.php',
-        shop: shops.Gold,
+        shop: shopNames.Gold,
         scraper: scrapers.Gold,
+      },
+      {
+        shop: shopNames.GoldenSpaceAH
+      },
+      {
+        shop: shopNames.GoldenSpaceHM
+      },
+      {
+        shop: shopNames.GoldenSpaceCH
+      },
+      {
+        shop: shopNames.GoldenSpaceIGR
       }
     ]
   },
   {
-    producer: producers.ArgorHeraeus,
-    size: '2',
+    size: '2g',
     list: [
       {
         link: '/api/gold/cena-2-grama.php',
-        shop: shops.Gold,
+        shop: shopNames.Gold,
         scraper: scrapers.Gold
+      },
+      {
+        shop: shopNames.GoldenSpaceAH
+      },
+      {
+        shop: shopNames.GoldenSpaceCH
       }
     ]
   },
   {
-    producer: producers.ArgorHeraeus,
-    size: '5',
+    size: '2.5g',
+    list: [
+      {
+        shop: shopNames.GoldenSpaceHM
+      },
+      {
+        shop: shopNames.GoldenSpaceIGR
+      }
+    ]
+  },
+  {
+    size: '5g',
     list: [
       {
         link: '/api/gold/cena-5-grama.php',
-        shop: shops.Gold,
+        shop: shopNames.Gold,
         scraper: scrapers.Gold
+      },
+      {
+        shop: shopNames.GoldenSpaceAH
+      },
+      {
+        shop: shopNames.GoldenSpaceHM
+      },
+      {
+        shop: shopNames.GoldenSpaceCH
+      },
+      {
+        shop: shopNames.GoldenSpaceIGR
       }
     ]
   },
   {
-    producer: producers.ArgorHeraeus,
-    size: '10',
+    size: '10g',
     list: [
       {
         link: '/api/gold/CENE/10.php',
-        shop: shops.Gold,
+        shop: shopNames.Gold,
         scraper: scrapers.GoldSpecial
+      },
+      {
+        shop: shopNames.GoldenSpaceAH
+      },
+      {
+        shop: shopNames.GoldenSpaceHM
+      },
+      {
+        shop: shopNames.GoldenSpaceCH
+      },
+      {
+        shop: shopNames.GoldenSpaceIGR
       }
     ]
   },
   {
-    producer: producers.ArgorHeraeus,
-    size: '20',
+    size: '20g',
     list: [
       {
         link: '/api/gold/CENE/20.php',
-        shop: shops.Gold,
+        shop: shopNames.Gold,
         scraper: scrapers.GoldSpecial
+      },
+      {
+        shop: shopNames.GoldenSpaceAH
+      },
+      {
+        shop: shopNames.GoldenSpaceHM
+      },
+      {
+        shop: shopNames.GoldenSpaceCH
+      },
+      {
+        shop: shopNames.GoldenSpaceIGR
       }
     ]
   },
   {
-    producer: producers.ArgorHeraeus,
-    size: '1OZ',
+    size: '1 Oz',
     list: [
       {
         link: '/api/gold/CENE/1OZ.php',
-        shop: shops.Gold,
+        shop: shopNames.Gold,
         scraper: scrapers.GoldSpecial
+      },
+      {
+        shop: shopNames.GoldenSpaceAH
+      },
+      {
+        shop: shopNames.GoldenSpaceHM
+      },
+      {
+        shop: shopNames.GoldenSpaceCH
+      },
+      {
+        shop: shopNames.GoldenSpaceIGR
       }
     ]
   },
   {
-    producer: producers.ArgorHeraeus,
-    size: '50',
+    size: '50g',
     list: [
       {
         link: '/api/gold/CENE/50.php',
-        shop: shops.Gold,
+        shop: shopNames.Gold,
         scraper: scrapers.GoldSpecial
+      },
+      {
+        shop: shopNames.GoldenSpaceAH
+      },
+      {
+        shop: shopNames.GoldenSpaceHM
+      },
+      {
+        shop: shopNames.GoldenSpaceCH
+      },
+      {
+        shop: shopNames.GoldenSpaceIGR
       }
     ]
   },
   {
-    producer: producers.ArgorHeraeus,
-    size: '100',
+    size: '100g',
     list: [
       {
         link: '/api/gold/CENE/100.php',
-        shop: shops.Gold,
+        shop: shopNames.Gold,
         scraper: scrapers.GoldSpecial
+      },
+      {
+        shop: shopNames.GoldenSpaceAH
+      },
+      {
+        shop: shopNames.GoldenSpaceHM
+      },
+      {
+        shop: shopNames.GoldenSpaceCH
+      },
+      {
+        shop: shopNames.GoldenSpaceIGR
       }
     ]
   },
   {
-    producer: producers.ArgorHeraeus,
-    size: '250',
+    size: '250g',
     list: [
       {
         link: '/api/gold/CENE/250.php',
-        shop: shops.Gold,
+        shop: shopNames.Gold,
         scraper: scrapers.GoldSpecial
+      },
+      {
+        shop: shopNames.GoldenSpaceAH
+      },
+      {
+        shop: shopNames.GoldenSpaceHM
+      },
+      {
+        shop: shopNames.GoldenSpaceCH
+      },
+      {
+        shop: shopNames.GoldenSpaceIGR
       }
     ]
   },
   {
-    producer: producers.ArgorHeraeus,
-    size: '500',
+    size: '500g',
     list: [
       {
         link: '/api/gold/CENE/500.php',
-        shop: shops.Gold,
+        shop: shopNames.Gold,
         scraper: scrapers.GoldSpecial
+      },
+      {
+        shop: shopNames.GoldenSpaceAH
+      },
+      {
+        shop: shopNames.GoldenSpaceHM
+      },
+      {
+        shop: shopNames.GoldenSpaceCH
+      },
+      {
+        shop: shopNames.GoldenSpaceIGR
       }
     ]
   },
   {
-    producer: producers.ArgorHeraeus,
-    size: '1000',
+    size: '1000g',
     list: [
       {
         link: '/api/gold/CENE/1000.php',
-        shop: shops.Gold,
+        shop: shopNames.Gold,
         scraper: scrapers.GoldSpecial
+      },
+      {
+        shop: shopNames.GoldenSpaceAH
+      },
+      {
+        shop: shopNames.GoldenSpaceHM
+      },
+      {
+        shop: shopNames.GoldenSpaceCH
+      },
+      {
+        shop: shopNames.GoldenSpaceIGR
       }
     ]
+  }
+]
+
+export const items = [
+  {
+    name: 'IGR',
+    link: '/api/golden-space/investicionozlato-igr/',
+    shop: shopNames.GoldenSpaceIGR
+  },
+  {
+    name: 'ARGOR-HERAEUS',
+    link: '/api/golden-space/investicionozlato-argor-heraeus/',
+    shop: shopNames.GoldenSpaceAH
+  },
+  {
+    name: 'C.Hafner',
+    link: '/api/golden-space/investicionozlato-c-hafner/',
+    shop: shopNames.GoldenSpaceCH
+  },
+  {
+    name: 'HEIMERLE+MEULE',
+    link: '/api/golden-space/investicionozlato-heimerle-meule/',
+    shop: shopNames.GoldenSpaceHM
   }
 ]

@@ -1,12 +1,20 @@
 <script>
 
 import { products } from '@/products.js'
+import { shopNames } from '@/products'
+import { ScrapeGoldenSpaceWebsite } from '@/GoldenSpaceScraper.js'
 
 export default {
+  computed: {
+    shopNames () {
+      return shopNames
+    }
+  },
   data () {
     return {
       prices: [],
-      productTypes: null
+      productTypes: null,
+      loading: true
     }
   }, mounted () {
     this.fetchGoldPrices()
@@ -14,16 +22,37 @@ export default {
   },
   methods: {
     async fetchGoldPrices () {
-      for (let i = 0; i < products.length; i++) {
-        const product = products[i]
-        for (let j = 0; j < product.list.length; j++) {
-          const item = product.list[j]
-          item.prices = await item.scraper(item.link)
-          item.producer = product.producer
+      const gsItems = await ScrapeGoldenSpaceWebsite()
 
-          this.prices.push(item)
-        }
-      }
+      const allItemPromises = products.flatMap(product =>
+        product.list.map(async item => {
+          if (!item.scraper) return {
+            ...item,
+            producer: product.producer,
+            size: product.size
+          }
+          const prices = await item.scraper(item.link)
+
+          return {
+            ...item,
+            prices: prices,
+            producer: product.producer,
+            size: product.size
+          }
+        })
+      )
+
+      const processedItems = await Promise.all(allItemPromises)
+
+      this.prices.push(...processedItems)
+
+      this.prices.forEach(price => {
+        const found = gsItems.find(item => this.GetHash(item) + item.shop === this.GetHash(price) + price.shop)
+        if (!found) return
+        debugger
+        price.prices = found.prices
+      })
+      this.loading = false
     },
     getDistinctProducerSize () {
       const distinctKeys = new Set()
@@ -35,15 +64,14 @@ export default {
 
         item.list.forEach(item => {
           const shop = item.shop
-          const key = `${producerName}|${size}|${shop}`
+          const key = `${ producerName }|${ size }`
 
           if (!distinctKeys.has(key)) {
             distinctKeys.add(key)
 
             distinctList.push({
               producer: producerName,
-              size: size,
-              shop: shop
+              size: size
             })
           }
         })
@@ -51,17 +79,39 @@ export default {
 
       this.productTypes = distinctList
     },
-    GetBuyPrice (productType) {
-      const price = this.prices.filter(item => this.GetHash(item) === this.GetHash(productType))
-
+    GetPrice (productType, shop) {
+      const price = this.prices.filter(item => this.GetHash(item) === this.GetHash(productType) && item.shop === shop)[0]
+      if (!price) return null
+      return price.prices
+    },
+    GetBuyPrice (productType, shop) {
+      let price = this.GetPrice(productType, shop)
+      if (!price) return null
       return price.buy
     },
-    GetSellPrice (productType) {
+    GetBuyFor10Price (productType, shop) {
+      let price = this.GetPrice(productType, shop)
+      if (!price) return null
+      return price.buyFor10
     },
-    GetMarkup (productType) {
+    GetSellPrice (productType, shop) {
+      let price = this.GetPrice(productType, shop)
+      if (!price) return null
+      return price.sell
+    },
+    GetMarkup (productType, shop) {
+      let price = this.GetPrice(productType, shop)
+      if (!price) return null
+      return 100 * (price.buy / price.sell - 1)
+    },
+    GetMarkupFor10 (productType, shop) {
+      let price = this.GetPrice(productType, shop)
+      if (!price) return null
+      if (!price.buyFor10) return null
+      return 100 * (price.buyFor10 / price.sell - 1)
     },
     GetHash (p) {
-      return p.shop + ':' + p.size + ':' + p.producer
+      return p.size
     }
   }
 }

@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { safeParseFloatStrict } from '@/helper.js'
 
 export async function ScrapeGoldWebsite (url) {
   try {
@@ -16,8 +17,8 @@ export async function ScrapeGoldWebsite (url) {
       }
 
       return {
-        buy: extractPrice(tables[0]),
-        sell: extractPrice(tables[1])
+        buy: safeParseFloatStrict(extractPrice(tables[0])),
+        sell: safeParseFloatStrict(extractPrice(tables[1]))
       }
     } else {
       console.error('Nije pronađen dovoljan broj tabela.')
@@ -42,8 +43,8 @@ export async function ScrapeGoldSpecialWebsite (url) {
       const buy = priceContainers[1].querySelector('div:nth-child(2)')
 
       return {
-        buy: sell ? sell.textContent.trim() : 'N/A',
-        sell: buy ? buy.textContent.trim() : 'N/A'
+        buy: sell ? safeParseFloatStrict(sell.textContent.trim()) : 'N/A',
+        sell: buy ? safeParseFloatStrict(buy.textContent.trim()) : 'N/A'
       }
     } else {
       console.error('Nije pronađen dovoljan broj kontejnera za cene.')
