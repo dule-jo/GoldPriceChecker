@@ -32,6 +32,7 @@ export default defineConfig({
       }
     }
   },
+  base: '/gold-price-checker',
   plugins:
     [
       vue(),
