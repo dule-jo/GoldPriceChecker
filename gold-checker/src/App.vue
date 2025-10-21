@@ -1,13 +1,17 @@
 <script>
 
 import { products } from '@/products.js'
-import { shopNames } from '@/products'
+import { shopNames, shopLink } from '@/products'
 import { ScrapeGoldenSpaceWebsite } from '@/GoldenSpaceScraper.js'
+import { FormatNumber } from '@/helper'
 
 export default {
   computed: {
     shopNames () {
       return shopNames
+    },
+    shopLink () {
+      return shopLink
     }
   },
   data () {
@@ -21,8 +25,9 @@ export default {
     this.getDistinctProducerSize()
   },
   methods: {
+    FormatNumber,
     async fetchGoldPrices () {
-      const gsItems = await ScrapeGoldenSpaceWebsite()
+      const gsItemsPromise = ScrapeGoldenSpaceWebsite()
 
       const allItemPromises = products.flatMap(product =>
         product.list.map(async item => {
@@ -43,13 +48,13 @@ export default {
       )
 
       const processedItems = await Promise.all(allItemPromises)
+      const gsItems = await gsItemsPromise
 
       this.prices.push(...processedItems)
 
       this.prices.forEach(price => {
         const found = gsItems.find(item => this.GetHash(item) + item.shop === this.GetHash(price) + price.shop)
         if (!found) return
-        debugger
         price.prices = found.prices
       })
       this.loading = false
@@ -112,6 +117,10 @@ export default {
     },
     GetHash (p) {
       return p.size
+    },
+    GetTdClass (markup) {
+      if (!markup) return ''
+      return markup > 3 ? 'warning' : 'success'
     }
   }
 }
@@ -134,5 +143,13 @@ td, th {
 
 tr:nth-child(even) {
     background-color: #dddddd;
+}
+
+td.success {
+    background-color: #a6d96a;
+}
+
+td.warning {
+    background-color: #fdae61;
 }
 </style>

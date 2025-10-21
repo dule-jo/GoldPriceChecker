@@ -1,5 +1,5 @@
 <div>
-    <div v-if="loading">
+    <div v-if="loading" style="margin-left: 1050px">
         loading...
     </div>
     <table v-else>
@@ -7,7 +7,7 @@
         <tr>
             <th colspan="1" style="border: white"></th>
             <th colspan="5"  style="border-left: 2px solid #000;" v-for="shop in shopNames">
-                {{ shop }}
+                <a :href="shopLink[shop]" target="_blank" style="color: #097969">{{ shop }}</a>
             </th>
         </tr>
         <tr>
@@ -23,11 +23,11 @@
         <tr v-for="productType in productTypes">
             <td>{{ productType.size }}</td>
             <template v-for="shop in shopNames">
-                <td style="border-left: 2px solid #000;">{{ GetBuyPrice(productType, shop)?.toFixed(0) }}</td>
-                <td>{{ GetBuyFor10Price(productType, shop)?.toFixed(0) ?? '-' }}</td>
-                <td>{{ GetSellPrice(productType, shop)?.toFixed(0) }}</td>
-                <td>{{ GetMarkup(productType, shop)?.toFixed(2) }}</td>
-                <td>{{ GetMarkupFor10(productType, shop)?.toFixed(2) ?? '-' }}</td>
+                <td style="border-left: 2px solid #000;">{{ FormatNumber(GetBuyPrice(productType, shop)) }}</td>
+                <td>{{ FormatNumber(GetBuyFor10Price(productType, shop)) }}</td>
+                <td>{{ FormatNumber(GetSellPrice(productType, shop)) }}</td>
+                <td :class="GetTdClass(GetMarkup(productType, shop))">{{ GetMarkup(productType, shop)?.toFixed(2) }}</td>
+                <td :class="GetTdClass(GetMarkupFor10(productType, shop))">{{ GetMarkupFor10(productType, shop)?.toFixed(2) ?? '-' }}</td>
             </template>
         </tr>
         </tbody>

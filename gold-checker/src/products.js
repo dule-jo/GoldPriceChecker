@@ -15,9 +15,12 @@ const producers = {
   CHafner: 'CHafner',
 }
 
-const shopLink = {
+export const shopLink = {
   [shopNames.Gold]: 'https://investicionozlato.com/cena-zlatnih-poluga/',
-  [shopNames.GoldenSpaceAH]: 'https://golden-space.rs/investicionozlato-argor-heraeus/'
+  [shopNames.GoldenSpaceAH]: 'https://golden-space.rs/investicionozlato-argor-heraeus/',
+  [shopNames.GoldenSpaceCH]: 'https://golden-space.rs/investicionozlato-c-hafner/',
+  [shopNames.GoldenSpaceHM]: 'https://golden-space.rs/investicionozlato-heimerle-meule/',
+  [shopNames.GoldenSpaceIGR]: 'https://golden-space.rs/investicionozlato-igr/',
 }
 
 const scrapers = {
