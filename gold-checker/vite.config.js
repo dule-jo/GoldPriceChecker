@@ -30,7 +30,7 @@ export default defineConfig({
       }
     }
   },
-  base: '/GoldPriceChecker/',
+  base: '/',
   plugins:
     [
       vue(),
