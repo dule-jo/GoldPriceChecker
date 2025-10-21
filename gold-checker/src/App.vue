@@ -153,10 +153,12 @@ tr:nth-child(even) {
 }
 
 th.success, td.success {
-    background-color: #a6d96a;
+    background-color: #d4edda; /* svijetlozelena, pastelna */
+    color: #155724; /* tamnozelena za kontrast */
 }
 
 th.warning, td.warning {
-    background-color: #fdae61;
+    background-color: #fff3cd; /* svijetložuta, pastelna */
+    color: #856404; /* tamnija žuta za čitljivost */
 }
 </style>
