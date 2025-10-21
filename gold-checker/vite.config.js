@@ -15,12 +15,10 @@ export default defineConfig({
         followRedirects: true,
         rewrite: (path) => path.replace(/^\/api\/golden-space/, ''),
         configure: (proxy, options) => {
-          configure: (proxy, options) => {
-            proxy.on('proxyReq', (proxyReq, req, res) => {
-              const targetUrl = proxyReq.protocol + '//' + proxyReq.host + proxyReq.path
-              console.log('Proxy šalje zahtev na:', targetUrl)
-            })
-          }
+          proxy.on('proxyReq', (proxyReq, req, res) => {
+            const targetUrl = proxyReq.protocol + '//' + proxyReq.host + proxyReq.path
+            console.log('Proxy šalje zahtev na:', targetUrl)
+          })
         },
         logLevel: 'debug'
       },
