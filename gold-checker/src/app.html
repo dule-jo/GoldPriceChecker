@@ -5,7 +5,7 @@
     <table v-else>
         <tbody>
         <tr>
-            <th colspan="1" style="border: white"></th>
+            <th colspan="1" :class="GetBerzaClass(getGoldBerza.chgXau)">{{ getGoldBerza.xauPrice }} {{ getGoldBerza.chgXau }}</th>
             <th colspan="5"  style="border-left: 2px solid #000;" v-for="shop in shopNames">
                 <a :href="shopLink[shop]" target="_blank" style="color: #097969">{{ shop }}</a>
             </th>

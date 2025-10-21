@@ -4,6 +4,7 @@ import { products } from '@/products.js'
 import { shopNames, shopLink } from '@/products'
 import { ScrapeGoldenSpaceWebsite } from '@/GoldenSpaceScraper.js'
 import { FormatNumber } from '@/helper'
+import { ScrapeGoldBerza } from '@/BerzaScraper.js'
 
 export default {
   computed: {
@@ -18,7 +19,8 @@ export default {
     return {
       prices: [],
       productTypes: null,
-      loading: true
+      loading: true,
+      getGoldBerza: 0
     }
   }, mounted () {
     this.fetchGoldPrices()
@@ -28,6 +30,7 @@ export default {
     FormatNumber,
     async fetchGoldPrices () {
       const gsItemsPromise = ScrapeGoldenSpaceWebsite()
+      const getGoldBerzaPromise = ScrapeGoldBerza()
 
       const allItemPromises = products.flatMap(product =>
         product.list.map(async item => {
@@ -49,6 +52,7 @@ export default {
 
       const processedItems = await Promise.all(allItemPromises)
       const gsItems = await gsItemsPromise
+      this.getGoldBerza = await getGoldBerzaPromise
 
       this.prices.push(...processedItems)
 
@@ -121,6 +125,9 @@ export default {
     GetTdClass (markup) {
       if (!markup) return ''
       return markup > 3 ? 'warning' : 'success'
+    },
+    GetBerzaClass (change) {
+      return change > 0 ? 'success' : 'warning'
     }
   }
 }
@@ -145,11 +152,11 @@ tr:nth-child(even) {
     background-color: #dddddd;
 }
 
-td.success {
+th.success, td.success {
     background-color: #a6d96a;
 }
 
-td.warning {
+th.warning, td.warning {
     background-color: #fdae61;
 }
 </style>
