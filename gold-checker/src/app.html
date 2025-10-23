@@ -1,23 +1,26 @@
-<div>
-    <div v-if="loading" style="margin-left: 1050px">
+<div class="container">
+    <div v-if="loading" class="item">
         loading...
     </div>
-    <table v-else>
-        <tbody>
+    <table v-else style="margin: 0 auto;" class="item">
+    <tbody>
         <tr>
-            <th colspan="1" :class="GetBerzaClass(getGoldBerza.chgXau)">{{ getGoldBerza.xauPrice }} {{ getGoldBerza.chgXau }}</th>
-            <th colspan="5"  style="border-left: 2px solid #000;" v-for="shop in shopNames">
+            <th colspan="1" :class="GetBerzaClass(getGoldBerza.chgXau)">{{ FormatNumber(getGoldBerza.xauPrice) }}
+                {{ FormatNumber(getGoldBerza.chgXau) }} <span style="font-weight: bold"> {{ getGoldBerza.chgXau > 0 ? '↗' : '↘' }}</span>
+                {{ FormatNumber(getGoldBerza.pcXau) }}%
+            </th>
+            <th colspan="5" style="border-left: 2px solid #000;" v-for="shop in shopNames">
                 <a :href="shopLink[shop]" target="_blank" style="color: #097969">{{ shop }}</a>
             </th>
         </tr>
         <tr>
             <th>Size</th>
             <template v-for="shop in shopNames">
-            <th style="border-left: 2px solid #000;">Buy</th>
-            <th>Buy for 10+</th>
-            <th>Sell</th>
-            <th>Mark-up</th>
-            <th>Mark-up for 10+</th>
+                <th style="border-left: 2px solid #000;">Buy</th>
+                <th>Buy for 10+</th>
+                <th>Sell</th>
+                <th>Mark-up</th>
+                <th>Mark-up for 10+</th>
             </template>
         </tr>
         <tr v-for="productType in productTypes">
@@ -26,8 +29,13 @@
                 <td style="border-left: 2px solid #000;">{{ FormatNumber(GetBuyPrice(productType, shop)) }}</td>
                 <td>{{ FormatNumber(GetBuyFor10Price(productType, shop)) }}</td>
                 <td>{{ FormatNumber(GetSellPrice(productType, shop)) }}</td>
-                <td :class="GetTdClass(GetMarkup(productType, shop))">{{ GetMarkup(productType, shop)?.toFixed(2) }}</td>
-                <td :class="GetTdClass(GetMarkupFor10(productType, shop))">{{ GetMarkupFor10(productType, shop)?.toFixed(2) ?? '-' }}</td>
+                <td :class="GetTdClass(GetMarkup(productType, shop))">{{
+                        GetMarkup(productType, shop)?.toFixed(2)
+                    }}
+                </td>
+                <td :class="GetTdClass(GetMarkupFor10(productType, shop))">
+                    {{ GetMarkupFor10(productType, shop)?.toFixed(2) ?? '-' }}
+                </td>
             </template>
         </tr>
         </tbody>

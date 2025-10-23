@@ -139,13 +139,16 @@ export default {
 table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
-    width: 100%;
+    width: auto;             /* ostaje automatska širina */
+    margin-left: auto;
+    margin-right: auto;      /* centrirana tabela */
+    font-size: 12px;         /* manji font za celu tabelu */
 }
 
 td, th {
     border: 1px solid #dddddd;
     text-align: left;
-    padding: 8px;
+    padding: 8px;            /* ostaje isti padding */
 }
 
 tr:nth-child(even) {
@@ -154,11 +157,33 @@ tr:nth-child(even) {
 
 th.success, td.success {
     background-color: #d4edda; /* svijetlozelena, pastelna */
-    color: #155724; /* tamnozelena za kontrast */
+    color: #155724;             /* tamnozelena za kontrast */
 }
 
 th.warning, td.warning {
     background-color: #fff3cd; /* svijetložuta, pastelna */
-    color: #856404; /* tamnija žuta za čitljivost */
+    color: #856404;             /* tamnija žuta za čitljivost */
+}
+
+/* RESPONSIVE: manji font i skrolovanje na mobilnim uređajima */
+@media screen and (max-width: 768px) {
+    table {
+        font-size: 11px;       /* još manji font na malim ekranima */
+    }
+    td, th {
+        padding: 6px;          /* manje paddinga da stane na ekran */
+    }
+    .table-wrapper {
+        overflow-x: auto;      /* omogući horizontalni skrol ako tabela ne stane */
+    }
+}
+
+.container {
+    display: flex;           /* Aktivira flexbox */
+    justify-content: center; /* Centriranje horizontalno */
+}
+.item {
+    margin: 0 10px;          /* Opcionalno, razmak između elemenata */
 }
 </style>
+
